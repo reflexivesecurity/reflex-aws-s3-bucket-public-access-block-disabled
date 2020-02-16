@@ -20,7 +20,7 @@ module "detect_disable_public_access_block" {
       "s3.amazonaws.com"
     ],
     "eventName": [
-      "PutAccountPublicAccessBlock"
+      "PutAccountPublicAccessBlock",
       "PutBucketPublicAccessBlock"
     ]
   }
