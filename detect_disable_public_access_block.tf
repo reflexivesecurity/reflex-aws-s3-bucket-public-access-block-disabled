@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "detect_disable_public_access_block" {
-  source           = "git@github.com:cloudmitigator/reflex.git//modules/cwe_lambda"
+  source           = "git@github.com:cloudmitigator/reflex.git//modules/cwe_lambda?ref=v0.0.1"
   rule_name        = "DetectDisablePublicAccessBlock"
   rule_description = "Rule to detect a change in public access block configuration"
 
