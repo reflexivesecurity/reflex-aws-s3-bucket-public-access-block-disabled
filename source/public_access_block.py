@@ -1,4 +1,4 @@
-""" Module for enforcing PublicAccessBlockRule """
+""" Module for detecting PublicAccessBlockRule """
 
 import json
 import os
@@ -8,7 +8,7 @@ from reflex_core import AWSRule
 
 
 class PublicAccessBlockRule(AWSRule):
-    """ AWS rule for ensuring S3 bucket encryption """
+    """ AWS rule for detecting removal of S3 bucket public access blocks  """
 
     def __init__(self, event):
         super().__init__(event)
@@ -37,6 +37,9 @@ class PublicAccessBlockRule(AWSRule):
         return "The public access block was changed to" \
                f"{self.block_configuration}, raw event: {self.raw_event} "
 
+    def remediate(self):
+        """ Since this is a detective control, no remediation action is taken """
+        return
 
 def lambda_handler(event, _):
     """ Handles the incoming event """

@@ -31,16 +31,7 @@ PATTERN
   custom_lambda_policy     = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:GetEncryptionConfiguration",
-        "s3:PutEncryptionConfiguration"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
+  "Statement": []
 }
 EOF
 
