@@ -37,10 +37,6 @@ class PublicAccessBlockRule(AWSRule):
         return "The public access block was changed to" \
                f"{self.block_configuration}, raw event: {self.raw_event} "
 
-    def remediate(self):
-        """ Since this is a detective control, no remediation action is taken """
-        return
-
 def lambda_handler(event, _):
     """ Handles the incoming event """
     print(event)
