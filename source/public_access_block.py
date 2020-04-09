@@ -35,7 +35,7 @@ class PublicAccessBlockRule(AWSRule):
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
         return "The public access block was changed to" \
-               f"{self.block_configuration}, raw event: {self.raw_event} "
+               f"{self.block_configuration}"
 
 def lambda_handler(event, _):
     """ Handles the incoming event """
