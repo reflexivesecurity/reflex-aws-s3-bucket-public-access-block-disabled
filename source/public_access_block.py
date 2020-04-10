@@ -16,9 +16,10 @@ class PublicAccessBlockRule(AWSRule):
     def extract_event_data(self, event):
         """ To be implemented by every rule """
         self.raw_event = event
-        self.block_configuration = (event["detail"]
-                                    ["requestParameters"]
-                                    ["PublicAccessBlockConfiguration"])
+        self.bucket_name = event["detail"]["requestParameters"]["bucketName"]
+        self.block_configuration = event["detail"]["requestParameters"][
+            "PublicAccessBlockConfiguration"
+        ]
 
     def resource_compliant(self):
         """ True if all blocks are set to True."""
@@ -26,7 +27,7 @@ class PublicAccessBlockRule(AWSRule):
 
     def all_public_access_blocks_true(self):
         """Iterates over blocks and checks if True."""
-        del self.block_configuration['xmlns']
+        del self.block_configuration["xmlns"]
         for block in self.block_configuration:
             if not self.block_configuration[block]:
                 return False
@@ -34,8 +35,11 @@ class PublicAccessBlockRule(AWSRule):
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
-        return "The public access block was changed to" \
-               f"{self.block_configuration}"
+        return (
+            f"The public access block for the bucket {self.bucket_name}"
+            f" was changed to {self.block_configuration}"
+        )
+
 
 def lambda_handler(event, _):
     """ Handles the incoming event """

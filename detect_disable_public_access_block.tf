@@ -1,7 +1,7 @@
-module "detect_disable_public_access_block" {
+module "disable_public_access_block" {
   source           = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=v0.3.0"
-  rule_name        = "DetectDisablePublicAccessBlock"
-  rule_description = "Rule to detect a change in public access block configuration"
+  rule_name        = "DisableBucketPublicAccessBlock"
+  rule_description = "Rule to detect a change in public access block configuration for an S3 bucket"
 
   event_pattern = <<PATTERN
 {
@@ -16,14 +16,13 @@ module "detect_disable_public_access_block" {
       "s3.amazonaws.com"
     ],
     "eventName": [
-      "PutAccountPublicAccessBlock",
       "PutBucketPublicAccessBlock"
     ]
   }
 }
 PATTERN
 
-  function_name            = "DetectDisablePublicAccessBlock"
+  function_name            = "DisableBucketPublicAccessBlock"
   source_code_dir          = "${path.module}/source"
   handler                  = "public_access_block.lambda_handler"
   lambda_runtime           = "python3.7"
@@ -45,11 +44,11 @@ EOF
 
 
 
-  queue_name    = "DetectDisablePublicAccessBlock"
-  delay_seconds = 60
+  queue_name    = "DisableBucketPublicAccessBlock"
+  delay_seconds = 0
 
-  target_id = "DetectDisablePublicAccessBlock"
+  target_id = "DisableBucketPublicAccessBlock"
 
-  sns_topic_arn = var.sns_topic_arn
+  sns_topic_arn  = var.sns_topic_arn
   sqs_kms_key_id = var.reflex_kms_key_id
 }
