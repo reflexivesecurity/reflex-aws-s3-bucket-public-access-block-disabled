@@ -23,9 +23,9 @@ class PublicAccessBlockRule(AWSRule):
 
     def resource_compliant(self):
         """ True if all blocks are set to True."""
-        return self.all_public_access_blocks_true()
+        return self.all_s3_bucket_public_access_block_disableds_true()
 
-    def all_public_access_blocks_true(self):
+    def all_s3_bucket_public_access_block_disableds_true(self):
         """Iterates over blocks and checks if True."""
         del self.block_configuration["xmlns"]
         for block in self.block_configuration:
