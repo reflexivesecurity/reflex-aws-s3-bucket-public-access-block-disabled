@@ -1,4 +1,4 @@
-""" Module for detecting PublicAccessBlockRule """
+""" Module for detecting S3BucketPublicAccessBlockDisabled """
 
 import json
 import os
@@ -7,7 +7,7 @@ import boto3
 from reflex_core import AWSRule
 
 
-class PublicAccessBlockRule(AWSRule):
+class S3BucketPublicAccessBlockDisabled(AWSRule):
     """ AWS rule for detecting removal of S3 bucket public access blocks  """
 
     def __init__(self, event):
@@ -23,9 +23,9 @@ class PublicAccessBlockRule(AWSRule):
 
     def resource_compliant(self):
         """ True if all blocks are set to True."""
-        return self.all_public_access_blocks_true()
+        return self.all_s3_bucket_public_access_block_disableds_true()
 
-    def all_public_access_blocks_true(self):
+    def all_s3_bucket_public_access_block_disableds_true(self):
         """Iterates over blocks and checks if True."""
         del self.block_configuration["xmlns"]
         for block in self.block_configuration:
@@ -44,5 +44,5 @@ class PublicAccessBlockRule(AWSRule):
 def lambda_handler(event, _):
     """ Handles the incoming event """
     print(event)
-    access_block_rule = PublicAccessBlockRule(json.loads(event["Records"][0]["body"]))
+    access_block_rule = S3BucketPublicAccessBlockDisabled(json.loads(event["Records"][0]["body"]))
     access_block_rule.run_compliance_rule()
