@@ -18,7 +18,7 @@ rules:
 or add it directly to your Terraform:  
 ```
 module "detect-disable-public-access-block" {
-  source            = "git::https://github.com/cloudmitigator/reflex-aws-detect-disable-public-access-block.git?ref=latest"
+  source            = "git::https://github.com/cloudmitigator/reflex-aws-s3-bucket-public-access-block-disabled.git?ref=latest"
   sns_topic_arn     = module.central-sns-topic.arn
   reflex_kms_key_id = module.reflex-kms-key.key_id
 }
