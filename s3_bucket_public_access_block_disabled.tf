@@ -1,5 +1,5 @@
 module "disable_s3_bucket_public_access_block_disabled" {
-  source           = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=v0.5.7"
+  source           = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe_lambda?ref=v0.6.0"
   rule_name        = "S3BucketPublicAccessBlockDisabled"
   rule_description = "Rule to detect a change in public access block configuration for an S3 bucket"
 
