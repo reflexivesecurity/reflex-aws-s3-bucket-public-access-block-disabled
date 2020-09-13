@@ -1,5 +1,5 @@
 module "cwe" {
-  source      = "git::https://github.com/cloudmitigator/reflex-engine.git//modules/cwe?ref=v2.0.1"
+  source      = "git::https://github.com/reflexivesecurity/reflex-engine.git//modules/cwe?ref=v2.1.0"
   name        = "S3BucketPublicAccessBlockDisabled"
   description = "Rule to detect a change in public access block configuration for an S3 bucket"
 
