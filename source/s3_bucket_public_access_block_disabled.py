@@ -44,8 +44,9 @@ class S3BucketPublicAccessBlockDisabled(AWSRule):
 def lambda_handler(event, _):
     """ Handles the incoming event """
     print(event)
-    if subscription_confirmation.is_subscription_confirmation(event):
-        subscription_confirmation.confirm_subscription(event)
+    event_payload = json.loads(event["Records"][0]["body"])
+    if subscription_confirmation.is_subscription_confirmation(event_payload):
+        subscription_confirmation.confirm_subscription(event_payload)
         return
-    access_block_rule = S3BucketPublicAccessBlockDisabled(json.loads(event["Records"][0]["body"]))
+    access_block_rule = S3BucketPublicAccessBlockDisabled(event_payload)
     access_block_rule.run_compliance_rule()
