@@ -50,10 +50,13 @@ class S3BucketPublicAccessBlockDisabled(AWSRule):
 
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
-        return (
+        message = (
             f"The public access block for the bucket {self.bucket_name}"
             f" was changed to {self.block_configuration}"
         )
+        if self.should_remediate():
+            message += "Public Access Blocks have been all reset to True."
+        return message
 
 
 def lambda_handler(event, _):
