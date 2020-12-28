@@ -33,6 +33,21 @@ class S3BucketPublicAccessBlockDisabled(AWSRule):
                 return False
         return True
 
+    def remediate(self):
+        """ Fix the non-compliant resource """
+        self.set_all_s3_bucket_public_access_blocks_true()
+
+    def set_all_s3_bucket_public_access_blocks_true(self):
+        self.client.put_public_access_block(
+            Bucket=self.bucket_name,
+            PublicAccessBlockConfiguration={
+                "BlockPublicAcls": True,
+                "IgnorePublicAcls": True,
+                "BlockPublicPolicy": True,
+                "RestrictPublicBuckets": True,
+            },
+        )
+
     def get_remediation_message(self):
         """ Returns a message about the remediation action that occurred """
         return (

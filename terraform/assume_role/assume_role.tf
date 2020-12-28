@@ -4,5 +4,20 @@ module "assume_role" {
 
   function_name             = "S3BucketPublicAccessBlockDisabled"
   lambda_execution_role_arn = "arn:aws:iam::${var.parent_account}:role/ReflexS3BucketPublicAccessBlockDisabledLambdaExecution"
+  custom_lambda_policy      = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:PutBucketPublicAccessBlock"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+
 
 }
